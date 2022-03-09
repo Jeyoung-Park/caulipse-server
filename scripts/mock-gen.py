@@ -22,9 +22,9 @@ location_enum = ['비대면','학교 스터디룸','중앙도서관','스터디�
 def make_user_insert_statement(id, email, password, is_logout, token):
     return f'''INSERT INTO USER(ID, EMAIL, PASSWORD, IS_LOGOUT, TOKEN, ROLE) VALUES ('{id}', '{email}', '{password}', {is_logout}, '{token}', 'GUEST');\n'''
 
-def make_user_profile_insert_statement(user_id, user_name, dept, grade, bio, user_about, show_dept, show_grade, on_break, link1, link2):
-    return f'''INSERT INTO USER_PROFILE(USER_ID, USER_NAME, DEPT, GRADE, BIO, USER_ABOUT, SHOW_DEPT, SHOW_GRADE, ON_BREAK, LINK1, LINK2)
-VALUES('{user_id}', '{user_name}', '{dept}', '{grade}', '{bio}', '{user_about}', {show_dept}, {show_grade}, {on_break}, '{link1}', '{link2}');\n'''
+def make_user_profile_insert_statement(user_id, user_name, dept, grade, bio, user_about, show_dept, show_grade, on_break, link1, link2, short_user_about, user_interest_category):
+    return f'''INSERT INTO USER_PROFILE(USER_ID, USER_NAME, DEPT, GRADE, BIO, USER_ABOUT, SHOW_DEPT, SHOW_GRADE, ON_BREAK, LINK1, LINK2, SHORT_USER_ABOUT, USER_INTEREST_CATEGORY)
+VALUES('{user_id}', '{user_name}', '{dept}', '{grade}', '{bio}', '{user_about}', {show_dept}, {show_grade}, {on_break}, '{link1}', '{link2}', '{short_user_about}', '{user_interest_category}');\n'''
 
 def make_study_insert_statement(id, title, study_about, weekday, frequency, location, capacity, members_count, vacancy, is_open, category_code, views, host_id):
     return f'''INSERT INTO STUDY(ID, TITLE, STUDY_ABOUT, WEEKDAY, FREQUENCY, LOCATION, CAPACITY, MEMBERS_COUNT, VACANCY, IS_OPEN, CATEGORY_CODE, VIEWS, HOST_ID)
@@ -81,8 +81,8 @@ with open('userdata.sql', 'w') as f:
 # user_profile table
 with open('userprofiledata.sql', 'w') as f:
     for i in range(user_number):
-        stmt = make_user_profile_insert_statement(user_ids[i], f'user{i}', 'dept', 'grade', 'bio',
-                f'user{i} about', 0, 0, 0, 'link1', 'link2')
+        stmt = make_user_profile_insert_statement(user_ids[i], f'user{i}', 'dept', 1, 'bio',
+                f'user{i} about', 0, 0, 0, 'link1', 'link2', 'short_user_about', '101, 102')
         f.write(stmt)
 
 # study table
